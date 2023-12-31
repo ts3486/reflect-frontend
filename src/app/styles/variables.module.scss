@@ -1,0 +1,19 @@
+$color-primary: #00b49c;
+$color-secondary: #f28518;
+$text-high-color: #000d0b;
+$text-low-color: #666e6d;
+$text-strong: #000000;
+$text-disabled: #b2b6b6;
+$text-inverted: #ffffff;
+$bg-base: #ffffff;
+$border-base: #e5e7e7;
+
+:export {
+  primaryColor: $color-primary;
+  secondaryColor: $color-secondary;
+  textHigh: $text-high-color;
+  textLow: $text-low-color;
+  textStrong: $text-strong;
+  textInverted: $text-inverted;
+  backgroundBase: $bg-base;
+}

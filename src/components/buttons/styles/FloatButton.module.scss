@@ -1,0 +1,18 @@
+.floatButton {
+    position: fixed;
+    right: 3vh;
+    bottom: 3vh;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border-radius: 30px;
+    border:none; 
+    transition: all 0.03s ease;
+
+    // &:hover {
+    //     background-color: $text-high-color;
+    // }
+
+    &:active {
+        transform: scale(0.98);
+    }
+}

@@ -1,95 +1,59 @@
+import { useState } from 'react'
 import Image from 'next/image'
-import styles from './page.module.css'
+import styles from './styles/page.module.scss'
+import { axios } from "@/init/axios"
+import { Cycle } from "@/client/snippetsAPI.schemas"
+import Link from 'next/link'
 
-export default function Home() {
+import { ActiveCycleCard } from '@/features/cycles/ActiveCycleCard';
+import { CompletedCycleCard } from '@/features/cycles/CompletedCycleCard';
+import { CycleList } from '@/features/cycles/CycleList';
+import { CreateCycleButton } from '@/features/cycles/CreateCycleButton';
+import { FloatButton } from '@/components/buttons/FloatButton'
+
+
+async function getActiveCycle() {
+  //add status filter parameter in query
+  return axios.get('/api/cycles').then(res => { return res.data; }).catch(err => console.log(err));
+}
+
+async function getCompletedCycles() {
+  //add status filter parameter in query
+  return axios.get('/api/cycles').then(res => { return res.data }).catch(err => console.log(err));
+}
+
+export default async function Home() {
+  const activeCycle = await getActiveCycle();
+  const completedCycles = await getCompletedCycles();
+
+  // const hasActiveCycle = activeCycle.length > 0;
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div>
+        <div className={styles.row}>
+          <div className={styles.col}>
+          Cycle Graph Space
+          </div>
         </div>
+        <div className={styles.row}>
+        <div className={styles.col}>
+          {/* {hasActiveCycle ?
+          <ActiveCycleCard activeCycle={activeCycle[0]} />:  <Link href="/create">
+          <button type="button">Start a cycle</button>
+         </Link>} */}
+           {/* <Link href="/create">
+              <button type="button">Start a cycle</button>
+           </Link> */}
+          
+          {/* conditional between create cycle button which opens a modal to give you two options: a. manual creation b. ai assistance  */}
+          <CreateCycleButton/>
+        </div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.col}>
+          <CycleList cycles={completedCycles} />
+          </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </div>
   )
 }

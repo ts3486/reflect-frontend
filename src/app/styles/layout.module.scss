@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 430px;
+  min-height: 100vh;
+  margin: 0 auto;
+  color: $text-high-color;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .container {
+    min-height: stretch;
+  }
+}
+
+.main {
+  flex-grow: 1;
+  padding: 6rem;
+}

@@ -1,0 +1,149 @@
+swagger: '2.0'
+info:
+  title: Snippets API
+  description: Test description
+  termsOfService: https://www.google.com/policies/terms/
+  contact:
+    email: contact@snippets.local
+  license:
+    name: BSD License
+  version: v1
+host: 127.0.0.1:8000
+schemes:
+  - http
+basePath: /api
+consumes:
+  - application/json
+produces:
+  - application/json
+securityDefinitions:
+  Basic:
+    type: basic
+security:
+  - Basic: []
+paths:
+  /cycles:
+    get:
+      operationId: cycles_list
+      description: List all the Cycle items for given requested user
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Cycle'
+        '400':
+          description: Bad Request
+      tags:
+        - cycles
+    post:
+      operationId: cycles_create
+      description: Create the cycle with given cycle data
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Cycle'
+        '400':
+          description: Bad Request
+      tags:
+        - cycles
+    parameters: []
+  /cycles/{cycle_id}:
+    get:
+      operationId: cycles_read
+      description: Retrieves the cycle with given cycle_id
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Cycle'
+        '400':
+          description: Bad Request
+      tags:
+        - cycles
+    put:
+      operationId: cycles_update
+      description: Updates the cycle item with given cycle_id if exists
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Cycle'
+        '400':
+          description: Bad Request
+      tags:
+        - cycles
+    delete:
+      operationId: cycles_delete
+      description: Deletes the cycle item with given cycle_id if exists
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - cycles
+    parameters:
+      - name: cycle_id
+        in: path
+        required: true
+        type: string
+definitions:
+  Cycle:
+    type: object
+    properties:
+      id:
+        title: Id
+        type: integer
+        readOnly: true
+      title:
+        title: Title
+        type: string
+        maxLength: 180
+        minLength: 1
+      status:
+        title: Status
+        type: string
+        maxLength: 180
+        minLength: 1
+      category:
+        title: Category
+        type: integer
+        maximum: 4294967295
+        minimum: 0
+      problem_description:
+        title: Problem description
+        type: string
+        maxLength: 500
+        minLength: 1
+      plan_description:
+        title: Plan description
+        type: string
+        maxLength: 500
+        minLength: 1
+      do_description:
+        title: Do description
+        type: string
+        maxLength: 500
+        minLength: 1
+      action_description:
+        title: Action description
+        type: string
+        maxLength: 500
+        minLength: 1
+      check_description:
+        title: Check description
+        type: string
+        maxLength: 500
+        minLength: 1
+      created_at:
+        title: Created at
+        type: string
+        format: date-time
+      updated_at:
+        title: Updated at
+        type: string
+        format: date-time
